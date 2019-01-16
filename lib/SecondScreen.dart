@@ -7,6 +7,7 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreenState extends State<SecondScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
