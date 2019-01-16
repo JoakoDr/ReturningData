@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_app/GridLayout.dart';
-import 'package:flutter_app/SecondScreen.dart';
+import 'package:flutter_app/homescreen/SecondScreen.dart';
+import 'package:flutter_app/homescreen/HomePresenter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 
@@ -25,11 +27,15 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+
+
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   Widget currentScreen;
   SecondScreen _secondScreen = SecondScreen();
   GridLayout _gridLayout = GridLayout();
+
+
 
   @override
   void initState() {
@@ -54,6 +60,9 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter = 0;
     });
   }
+  _launchURL() async {
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +78,26 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+         // this will be set when a new tab is tapped
+        items: [
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.home),
+            title: new Text('Home'),
+
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.mail),
+            title: new Text('Messages'),
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              title: Text('Profile')
+          )
+        ],
+      ),
+
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
@@ -82,6 +111,8 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text("Home"),
               onTap: ()
                   {
+                  //  _launchURL();
+
                     setState(() {
                       currentScreen = _secondScreen;
                       Navigator.pop(context);
@@ -94,6 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
               title: Text("Settings"),
               onTap: ()
                   {
+                    _launchURL();
                     setState(() {
                       currentScreen = _gridLayout;
                       Navigator.pop(context);
@@ -106,5 +138,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body:currentScreen
     );
+
   }
 }

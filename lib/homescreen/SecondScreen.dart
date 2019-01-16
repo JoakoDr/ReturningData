@@ -1,14 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/GridLayout.dart';
+import 'package:flutter_app/homescreen/HomePresenter.dart';
+import 'package:flutter_app/homescreen/HomeView.dart';
 
 class SecondScreen extends StatefulWidget {
   @override
   _SecondScreenState createState() => _SecondScreenState();
 }
 
-class _SecondScreenState extends State<SecondScreen> {
+class _SecondScreenState extends State<SecondScreen> implements HomeView {
 
+  HomePresenter _homePresenter;
   @override
+
+  _SecondScreenState()
+  {
+    _homePresenter = HomePresenter(this);
+  }
+
+  void initState()
+  {
+
+  }
+
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text("Second Screen"),),
@@ -18,7 +33,9 @@ class _SecondScreenState extends State<SecondScreen> {
             title: Text("Element $position"),
             subtitle: Text("Subtitle $position"),
             onTap: (){
-              _navigateAndDisplaySelection(context);
+
+              _homePresenter.elementCliked(position);
+             // _navigateAndDisplaySelection(context);
 
             },
           );
@@ -41,5 +58,14 @@ class _SecondScreenState extends State<SecondScreen> {
     Scaffold.of(context)
       ..removeCurrentSnackBar()
       ..showSnackBar(SnackBar(content: Text("$result")));
+  }
+
+  @override
+  openSettingsScreen() {
+    // TODO: implement openSettingsScreen
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => GridLayout()),
+    );
   }
 }
